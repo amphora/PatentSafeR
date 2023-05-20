@@ -4,7 +4,8 @@ Version: 0.0.0.1
 Authors@R: 
     person("Simon", "Coles", , "simon.coles@amphora-research.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Submit to PatentSafe from R
+Description: Submit to PatentSafe from R. A variety of functions to
+    submit either a PDF or an entire project's report.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -13,5 +14,5 @@ URL: https://github.com/amphora/PatentSafeR
 BugReports: https://github.com/amphora/PatentSafeR/issues
 Imports:
     httr2,
-    curl
-  
+    curl, 
+    zip

@@ -24,3 +24,8 @@ library(PatentSafeR)
 ## basic example code
 ```
 
+## Credentials 
+
+Store in your `.Renviron` file 
+- `PATENTSAFE_URL` - Your PatentSafe server URL
+- `PATENTSAFE_USERID` - Your PatentSafe user ID
