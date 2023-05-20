@@ -1,46 +1,24 @@
-library(tidyverse)
-library(units)
-library(readxl)
-library(writexl)
-library(janitor)
-library(knitr)
-library(icons)
-library(rmarkdown)
-
-# We need RCurl
-install.packages("RCurl", dependencies = TRUE)
-library("RCurl")
-
-
-#------------------------------------------------------------------------------
-# Change this to be your server and PatentSafe user ID
-#------------------------------------------------------------------------------
-url <- "https://test.morescience.com/submit/document.html"
-authorId <- "simonc"
-
-#------------------------------------------------------------------------------
-# Set things up for the submission
-#------------------------------------------------------------------------------
-
-
-# The Zip file of this experiment content, which will be attached
-#zipFile <- fileUpload("data.zip", "application/zip")
-zipFile <- NULL
 
 
 
-# text content
-textContent <- ""
-
+#' Title
+#'
+#' @param url the URL of your PatentSafe Server
+#' @param authorId your PatentSafe user ID
+#' @param reportFilename filename of your report file (should be a PDF)
+#'
+#' @return PatentSafe document ID or error code
+#' @export
+#'
+#' @examples
+#' submit('https://demo.morescience.com', 'clarusc', 'report.pdf')
 submit <- function(url, authorId, reportFilename) {
 
-  # Curl options, ignore SSL just in case this version of Curl is out of date
-  curlOpts <- list(
-    ssl.verifypeer = FALSE
-  )
+  # This is the URL of the API endpoint
+  submitUrl <- paste(url, "/submit/document.html")
 
-  # The main PDF itself
-  pdfFile <- fileUpload("reportFilename", "application/pdf")
+  # text content
+  textContent <- ""
 
   # Any metadata you might want to set
   metadata <- "<metadata> <tag name=\"TAG NAME\">VALUE</tag> </metadata>"
@@ -48,20 +26,16 @@ submit <- function(url, authorId, reportFilename) {
   # Summary of the document
   docSummary <- "This is a summary of the document. Put up to 200 characters here"
 
-  # text content
-  textContent <- ""
+  req <- httr2::request(submitUrl)
+  httr2::req_options(req, ssl_verifypeer = 0)
+  httr2::req_body_multipart(req,
+    pdfContent = curl::form_file(reportFilename),
+    authorId= authorId,
+    summary = docSummary,
+    destination = "sign",
+    metadata = metadata
+  )
+  httr2::req_dry_run(req)
 
-  # Do the post
-  docId <- RCurl::postForm(url,
-                    .opts = curlOpts,
-                    pdfContent = pdfFile,
-                    attachment = zipFile,
-                    authorId= authorId,
-                    summary = docSummary,
-                    destination = "sign",
-                    metadata = metadata,
-                    textContent = textContent,
-                    style = "httppost")
-  docId
 
 }
