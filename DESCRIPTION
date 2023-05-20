@@ -1,10 +1,10 @@
 Package: PatentSafeR
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Easily Submit to PatentSafe from R
+Version: 0.0.0.1
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+    person("Simon", "Coles", , "simon.coles@amphora-research.com", role = c("aut", "cre", "mnt"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: Submit to PatentSafe from R
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -19,5 +19,6 @@ Imports:
     janitor,
     knitr,
     icons,
-    rmarkdown
+    rmarkdown,
+    RCurl
   
