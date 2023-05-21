@@ -25,9 +25,10 @@ library(PatentSafeR)
 ## basic example code
 ```
 
-## Credentials 
+## Credentials
 
-Store in your `.Renviron` file 
+Store in your `.Renviron` file
+
 - `PATENTSAFE_URL` - Your PatentSafe server URL
 - `PATENTSAFE_USERID` - Your PatentSafe user ID
 
@@ -35,7 +36,7 @@ To set the environment variables, use `usethis::edit_r_environ()`
 
 e.g.
 
-```
+``` sh
 PATENTSAFE_URL=test.morescience.com
 PATENTSAFE_USERID=clarusc
 ```
