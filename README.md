@@ -76,5 +76,6 @@ To test
 ``` r
 devtools::load_all()
 PatentSafeR::submit_pdf(system.file("extdata", "test.pdf", package = "PatentSafeR"))
-PatentSafeR::submit_rmd(system.file("extdata", "Report.Rmd", package = "PatentSafeR"))
+PatentSafeR::submit_rmd(system.file("extdata", "Writeup.Rmd", package = "PatentSafeR"))
+PatentSafeR::submit_rmd(system.file("extdata", "Writeup.Rmd", package = "PatentSafeR"), metadata = list(key1 = "value1", key2 = "value2", key3 = "value3"))
 ```

@@ -21,7 +21,8 @@ submit_rmd(
 \item{summary}{Summary of the experiment, defaults to PatentSafe's
 automatic calculation}
 
-\item{metadata}{Metadata for the PatentSafe document, as a}
+\item{metadata}{Metadata for the PatentSafe document, as a list() of key
+value pairs}
 
 \item{destination}{PatentSafe queue to submit to, defaults to "sign"}
 

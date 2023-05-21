@@ -24,7 +24,8 @@ automatic extraction}
 \item{summary}{Summary of the experiment, defaults to PatentSafe's automatic
 calculation}
 
-\item{metadata}{Metadata for the PatentSafe document, as a}
+\item{metadata}{Metadata for the PatentSafe document, as a list() of key
+value pairs}
 
 \item{destination}{PatentSafe queue to submit to, defaults to "sign"}
 
@@ -42,7 +43,7 @@ PatentSafe document ID or error code
 Submit a PDF
 }
 \examples{
-# Path to the PDF 
+# Path to the PDF
 \dontrun{
 submit_pdf(test.pdf,
            url = "https://demo.morescience.com",

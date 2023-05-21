@@ -8,7 +8,7 @@
 #' @param report_filename Filename of the Report file, defaults to Report.Rmd
 #' @param summary Summary of the experiment, defaults to PatentSafe's automatic
 #'                calculation
-#' @param metadata Metadata for the PatentSafe document, as a list() of key 
+#' @param metadata Metadata for the PatentSafe document, as a list() of key
 #'                 value pairs
 #' @param destination PatentSafe queue to submit to, defaults to "sign"
 #'
@@ -60,7 +60,7 @@ submit_this_project <- function(directory = ".",
 #' @param author_id your PatentSafe user ID defaults to PATENTSAFE_URL
 #' @param summary Summary of the experiment, defaults to PatentSafe's
 #'                automatic calculation
-#' @param metadata Metadata for the PatentSafe document, as a list() of key 
+#' @param metadata Metadata for the PatentSafe document, as a list() of key
 #'                 value pairs
 #' @param destination PatentSafe queue to submit to, defaults to "sign"
 #' @param attachment_filename The filename of an attachment defaults to
@@ -132,7 +132,7 @@ submit_rmd <- function(report_filename = "Writeup.Rmd",
 #'                     automatic extraction
 #' @param summary Summary of the experiment, defaults to PatentSafe's automatic
 #'                calculation
-#' @param metadata Metadata for the PatentSafe document, as a list() of key 
+#' @param metadata Metadata for the PatentSafe document, as a list() of key
 #'                 value pairs
 #' @param destination PatentSafe queue to submit to, defaults to "sign"
 #' @param attachment_filename The filename of an attachment defaults to
@@ -142,7 +142,7 @@ submit_rmd <- function(report_filename = "Writeup.Rmd",
 #' @export
 #'
 #' @examples
-#' # Path to the PDF 
+#' # Path to the PDF
 #' \dontrun{
 #' submit_pdf(test.pdf,
 #'            url = "https://demo.morescience.com",
@@ -165,9 +165,7 @@ submit_pdf <- function(report_filename,
   cat("This is the API Endpoint", submit_url, "\n")
 
   # Any metadata you might want to set
-  # TODO generate this from the parameters
-  metadata <-
-    "<metadata> <tag name=\"TAG NAME\">VALUE</tag> </metadata>"
+  metadata <- create_metadata_xml(metadata)
 
   req <- httr2::request(submit_url)
   req <- httr2::req_options(req, ssl_verifypeer = 0)
@@ -226,4 +224,28 @@ open_patentsafe_document <- function(submission_return, base_url) {
   } else {
     "Something bad  happened"
   }
+}
+
+
+# Function to create XML from a named list
+create_metadata_xml <- function(named_list) {
+  # Create an empty XML node for 'metadata'
+  metadata <- XML::newXMLNode("metadata")
+
+  # Iterate over the keys in the named list
+  for (key in names(named_list)) {
+    # Create a new 'tag' node and set the 'name' attribute
+    tag_node <- XML::newXMLNode("tag", parent = metadata)
+    XML::xmlAttrs(tag_node) <- c(name = key)
+
+    # Get the value and escape it
+    value <- as.character(named_list[[key]])
+
+    # Set the value as the content of the 'tag' node
+    XML::xmlValue(tag_node) <- value
+  }
+
+  # Convert the 'metadata' node to an XML string
+  xml_string <- XML::saveXML(metadata)
+  return(xml_string)
 }
