@@ -8,7 +8,8 @@
 #' @param report_filename Filename of the Report file, defaults to Report.Rmd
 #' @param summary Summary of the experiment, defaults to PatentSafe's automatic
 #'                calculation
-#' @param metadata Metadata for the PatentSafe document, as a
+#' @param metadata Metadata for the PatentSafe document, as a list() of key 
+#'                 value pairs
 #' @param destination PatentSafe queue to submit to, defaults to "sign"
 #'
 #' @return Error code or opens PatentSafe in a browser
@@ -58,8 +59,9 @@ submit_this_project <- function(directory = ".",
 #' @param url the URL of your PatentSafe Server defaults to PATENTSAFE_USERID
 #' @param author_id your PatentSafe user ID defaults to PATENTSAFE_URL
 #' @param summary Summary of the experiment, defaults to PatentSafe's
-#' automatic calculation
-#' @param metadata Metadata for the PatentSafe document, as a
+#'                automatic calculation
+#' @param metadata Metadata for the PatentSafe document, as a list() of key 
+#'                 value pairs
 #' @param destination PatentSafe queue to submit to, defaults to "sign"
 #' @param attachment_filename The filename of an attachment defaults to
 #'        no attachment
@@ -127,13 +129,14 @@ submit_rmd <- function(report_filename = "Writeup.Rmd",
 #' @param url the URL of your PatentSafe Server defaults to PATENTSAFE_USERID
 #' @param author_id your PatentSafe user ID defaults to PATENTSAFE_URL
 #' @param text_content Textual content of the PDF, defaults to PatentSafe's
-#' automatic extraction
+#'                     automatic extraction
 #' @param summary Summary of the experiment, defaults to PatentSafe's automatic
 #'                calculation
-#' @param metadata Metadata for the PatentSafe document, as a
+#' @param metadata Metadata for the PatentSafe document, as a list() of key 
+#'                 value pairs
 #' @param destination PatentSafe queue to submit to, defaults to "sign"
 #' @param attachment_filename The filename of an attachment defaults to
-#'        no attachment
+#'                 no attachment
 #'
 #' @return PatentSafe document ID or error code
 #' @export
