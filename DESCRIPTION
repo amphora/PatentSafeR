@@ -3,7 +3,7 @@ Title: Easily Submit to PatentSafe from R
 Version: 0.0.0.1
 Authors@R: 
     person("Simon", "Coles", , "simon.coles@amphora-research.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           comment = c(ORCID = "0009-0002-5680-5476"))
 Description: The goal of PatentSafeR is to make it quick and easy to submit your experimental 
              work to the PatentSafe ELN from Amphora Research Systems. Support for this 
              package is provided with your PatentSafe support contract, so if you'd like
