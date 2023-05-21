@@ -31,6 +31,13 @@ brew install --cask mactex
 
 Note you will need to restart your R environment after installing `mactex` to pick up the new binaries.
 
+On Ubuntu:
+
+``` sh
+sudo apt-get update
+sudo apt-get install texlive-latex-recommended texlive-latex-extra
+```
+
 ## Example
 
 To submit the current directory to PatentSafe, assuming you have a file `Report.Rmd` which is your write up.
