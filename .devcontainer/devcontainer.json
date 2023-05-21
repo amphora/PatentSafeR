@@ -9,7 +9,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"Gruntfuggly.todo-tree"
 			]
 		}
 	},
