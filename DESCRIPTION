@@ -4,8 +4,8 @@ Version: 0.0.0.1
 Authors@R: 
     person("Simon", "Coles", , "simon.coles@amphora-research.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Submit to PatentSafe from R. A variety of functions to
-    submit either a PDF or an entire project's report.
+Description: The goal of PatentSafeR is to make it quick and easy to submit your experimental 
+             work to the PatentSafe ELN from Amphora Research Systems.  
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -15,4 +15,5 @@ BugReports: https://github.com/amphora/PatentSafeR/issues
 Imports:
     httr2,
     curl, 
-    zip
+    zip,
+    rmarkdown

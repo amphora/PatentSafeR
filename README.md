@@ -4,7 +4,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of PatentSafeR is to ...
+The goal of PatentSafeR is to make it quick and easy to submit your experimental 
+work to the [PatentSafe ELN from Amphora Research Systems](https://amphora-research.com). 
 
 ## Installation
 
@@ -17,7 +18,7 @@ devtools::install_github("amphora/PatentSafeR")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+To submit the current directory to PatentSafe, assuming you have a file Report.Rmd
 
 ``` r
 library(PatentSafeR)
@@ -29,3 +30,12 @@ library(PatentSafeR)
 Store in your `.Renviron` file 
 - `PATENTSAFE_URL` - Your PatentSafe server URL
 - `PATENTSAFE_USERID` - Your PatentSafe user ID
+
+
+## Development
+
+To get an R Session in the included Dev Container, "R: Create R Terminal".
+
+To check the Package, use `devtools::check()`
+
+
