@@ -5,7 +5,9 @@ Authors@R:
     person("Simon", "Coles", , "simon.coles@amphora-research.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: The goal of PatentSafeR is to make it quick and easy to submit your experimental 
-             work to the PatentSafe ELN from Amphora Research Systems.  
+             work to the PatentSafe ELN from Amphora Research Systems. Support for this 
+             package is provided with your PatentSafe support contract, so if you'd like
+             assistance use the "Support" link on every PatentSafe page. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -17,8 +19,7 @@ Imports:
     curl, 
     zip,
     rmarkdown,
-    rvest,
-    xml2
+    rvest
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
