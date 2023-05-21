@@ -37,7 +37,7 @@ Error code or opens PatentSafe in a browser
 Submit this project to PatentSafe as both a PDF and a .zip attachment
 }
 \examples{
-submit_this_project(system.file("extdata", package = 'PatentSafeR'),
-                    url = 'https://demo.morescience.com',
-                    author_id = "clarusc")
+\dontrun{
+submit_this_project('.'
+}
 }

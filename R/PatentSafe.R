@@ -15,9 +15,9 @@
 #' @export
 #'
 #' @examples
-#' submit_this_project(system.file("extdata", package = 'PatentSafeR'),
-#'                     url = 'https://demo.morescience.com',
-#'                     author_id = "clarusc")
+#' \dontrun{
+#' submit_this_project('.'
+#' }
 submit_this_project <- function(directory = ".",
                               report_filename = "Writeup.Rmd",
                               summary = NULL,
@@ -25,6 +25,8 @@ submit_this_project <- function(directory = ".",
                               destination = "sign",
                               url = Sys.getenv("PATENTSAFE_URL"),
                               author_id = Sys.getenv("PATENTSAFE_USERID")) {
+
+  cat("submit_this_project called with directory ", directory, "\n")
 
   # Create a Zip of the project
   zip_filename <- file.path(tempdir(), "/project.zip")
@@ -66,10 +68,11 @@ submit_this_project <- function(directory = ".",
 #' @export
 #'
 #' @examples
-#' submit_rmd(system.file("extdata", 'Report.Rmd',
-#'            package = 'PatentSafeR'),
+#' \dontrun{
+#' submit_rmd('Report.Rmd',
 #'            'https://demo.morescience.com',
 #'            'clarusc')
+#' }
 submit_rmd <- function(report_filename = "Writeup.Rmd",
                       summary = NULL,
                       metadata = NULL,
@@ -77,6 +80,8 @@ submit_rmd <- function(report_filename = "Writeup.Rmd",
                       attachment_filename = NULL,
                       url = Sys.getenv("PATENTSAFE_URL"),
                       author_id = Sys.getenv("PATENTSAFE_USERID")) {
+
+  cat("submit_rmd called with file ", report_filename, "\n")
 
   # Render the file as a .html and .pdf
   rmarkdown::render(
@@ -113,7 +118,6 @@ submit_rmd <- function(report_filename = "Writeup.Rmd",
   )
 
   response
-
 }
 
 
@@ -135,9 +139,12 @@ submit_rmd <- function(report_filename = "Writeup.Rmd",
 #' @export
 #'
 #' @examples
-#' submit_pdf(system.file("extdata", "test.pdf", package = "PatentSafeR"),
+#' # Path to the PDF 
+#' \dontrun{
+#' submit_pdf(test.pdf,
 #'            url = "https://demo.morescience.com",
 #'            author_id = "clarusc")
+#' }
 submit_pdf <- function(report_filename,
                       text_content = NULL,
                       summary = NULL,

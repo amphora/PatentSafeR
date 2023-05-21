@@ -42,7 +42,10 @@ PatentSafe document ID or error code
 Submit a PDF
 }
 \examples{
-submit_pdf(system.file("extdata", "test.pdf", package = "PatentSafeR"),
+# Path to the PDF 
+\dontrun{
+submit_pdf(test.pdf,
            url = "https://demo.morescience.com",
            author_id = "clarusc")
+}
 }
