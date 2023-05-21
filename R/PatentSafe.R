@@ -154,18 +154,19 @@ submit_rmd <- function(report_filename,
                       url = Sys.getenv("PATENTSAFE_URL"),
                       author_id = Sys.getenv("PATENTSAFE_USERID"))
 {
-  # Render the file
+  # Render the file as a .html and .pdf
   rmarkdown::render(
     input = report_filename,
-    output_format = "pdf_document",
-    output_file = "report.pdf",
+    output_format = c("html_document", "pdf_document"),
+    output_file = "report",
     output_dir = tempdir()
   )
 
   # TODO make the path work on Windows
   report_filename <- paste0(tempdir(), "/report.pdf")
 
-  text_content <- NULL
+  # TODO get the text content from the .html file
+   text_content <- NULL
 
   # Now we've prepared things, submit to PatentSafe
   response <- submit_pdf(
