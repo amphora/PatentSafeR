@@ -36,5 +36,8 @@ Submit an .Rmd file to PatentSafe. This is the best option for
 submission because we can extract text etc.
 }
 \examples{
-submit_rmd(file.path(getwd(), 'test/Report.Rmd'), 'https://demo.morescience.com', 'clarusc')
+submit_rmd(system.file("extdata", 'Report.Rmd', 
+           package = 'PatentSafeR'),
+           'https://demo.morescience.com', 
+           'clarusc')
 }

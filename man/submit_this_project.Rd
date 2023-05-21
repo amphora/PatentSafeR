@@ -19,7 +19,8 @@ submit_this_project(
 
 \item{report_filename}{Filename of the Report file, defaults to Report.Rmd}
 
-\item{summary}{Summary of the experiment, defaults to PatentSafe's automatic calculation}
+\item{summary}{Summary of the experiment, defaults to PatentSafe's automatic
+calculation}
 
 \item{metadata}{Metadata for the PatentSafe document, as a}
 
@@ -36,5 +37,7 @@ Error code or opens PatentSafe in a browser
 Submit this project to PatentSafe
 }
 \examples{
-submit_this_project(file.path(getwd(),'test'), 'https://demo.morescience.com', 'clarusc')
+submit_this_project(system.file("extdata", package = 'PatentSafeR'),
+                    url = 'https://demo.morescience.com', 
+                    author_id = 'clarusc')
 }

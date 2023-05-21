@@ -21,13 +21,15 @@ submit_pdf(
 \item{text_content}{Textual content of the PDF, defaults to PatentSafe's
 automatic extraction}
 
-\item{summary}{Summary of the experiment, defaults to PatentSafe's automatic calculation}
+\item{summary}{Summary of the experiment, defaults to PatentSafe's automatic
+calculation}
 
 \item{metadata}{Metadata for the PatentSafe document, as a}
 
 \item{destination}{PatentSafe queue to submit to, defaults to "sign"}
 
-\item{attachment_filename}{The filename of an attachment defaults to no attachment}
+\item{attachment_filename}{The filename of an attachment defaults to
+no attachment}
 
 \item{url}{the URL of your PatentSafe Server defaults to PATENTSAFE_USERID}
 
@@ -40,5 +42,7 @@ PatentSafe document ID or error code
 Submit a PDF
 }
 \examples{
-submit_pdf(file.path(getwd(),'test/report.pdf'), 'https://demo.morescience.com', 'clarusc')
+submit_pdf(system.file("extdata", "test.pdf", package = "PatentSafeR"),
+           url = 'https://demo.morescience.com',
+           author_id = 'clarusc')
 }

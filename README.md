@@ -38,4 +38,5 @@ To get an R Session in the included Dev Container, "R: Create R Terminal".
 
 To check the Package, use `devtools::check()`
 
+To generate documentation use `devtools::document()`
 

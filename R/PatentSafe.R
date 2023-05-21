@@ -7,16 +7,20 @@
 #' @param author_id your PatentSafe user ID defaults to PATENTSAFE_URL
 #' @param text_content Textual content of the PDF, defaults to PatentSafe's 
 #' automatic extraction
-#' @param summary Summary of the experiment, defaults to PatentSafe's automatic calculation
+#' @param summary Summary of the experiment, defaults to PatentSafe's automatic 
+#'                calculation
 #' @param metadata Metadata for the PatentSafe document, as a
 #' @param destination PatentSafe queue to submit to, defaults to "sign"
-#' @param attachment_filename The filename of an attachment defaults to no attachment
+#' @param attachment_filename The filename of an attachment defaults to 
+#'        no attachment
 #'
 #' @return PatentSafe document ID or error code
 #' @export
 #'
 #' @examples
-#' submit_pdf(file.path(getwd(),'test/report.pdf'), 'https://demo.morescience.com', 'clarusc')
+#' submit_pdf(system.file("extdata", "test.pdf", package = "PatentSafeR"),
+#'            url = 'https://demo.morescience.com',
+#'            author_id = 'clarusc')
 submit_pdf <- function(report_filename,
                       text_content = NULL,
                       summary = NULL,
@@ -26,6 +30,8 @@ submit_pdf <- function(report_filename,
                       url = Sys.getenv("PATENTSAFE_URL"),
                       author_id = Sys.getenv("PATENTSAFE_USERID"))
 {
+  cat("This is the filename", report_filename)
+
   # This is the URL of the API endpoint
   submit_url <- paste(url, "/submit/document.html")
 
@@ -59,7 +65,8 @@ submit_pdf <- function(report_filename,
 #' @param url the URL of your PatentSafe Server defaults to PATENTSAFE_USERID
 #' @param author_id your PatentSafe user ID defaults to PATENTSAFE_URL
 #' @param report_filename Filename of the Report file, defaults to Report.Rmd
-#' @param summary Summary of the experiment, defaults to PatentSafe's automatic calculation
+#' @param summary Summary of the experiment, defaults to PatentSafe's automatic 
+#'                calculation
 #' @param metadata Metadata for the PatentSafe document, as a
 #' @param destination PatentSafe queue to submit to, defaults to "sign"
 #'
@@ -67,7 +74,9 @@ submit_pdf <- function(report_filename,
 #' @export
 #'
 #' @examples
-#' submit_this_project(file.path(getwd(),'test'), 'https://demo.morescience.com', 'clarusc')
+#' submit_this_project(system.file("extdata", package = 'PatentSafeR'),
+#'                     url = 'https://demo.morescience.com', 
+#'                     author_id = 'clarusc')
 submit_this_project <- function(directory = '.',
                               report_filename = "Report.Rmd",
                               summary = NULL,
@@ -124,7 +133,10 @@ submit_this_project <- function(directory = '.',
 #' @export
 #'
 #' @examples
-#' submit_rmd(file.path(getwd(), 'test/Report.Rmd'), 'https://demo.morescience.com', 'clarusc')
+#' submit_rmd(system.file("extdata", 'Report.Rmd', 
+#'            package = 'PatentSafeR'),
+#'            'https://demo.morescience.com', 
+#'            'clarusc')
 submit_rmd <- function(report_filename,
                       summary = NULL,
                       metadata = NULL,
