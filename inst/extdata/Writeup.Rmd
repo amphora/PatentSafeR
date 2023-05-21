@@ -1,0 +1,46 @@
+---
+title: "Example Rmd File"
+author: "Clarus"
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+# Introduction
+
+This is an example of an R Markdown file using R and Markdown. 
+Below, we'll create a simple data frame and perform a basic plot using ggplot2.
+
+# Create Data Frame
+
+Here's a simple data frame with two variables, `x` and `y`, containing random 
+values.
+
+```{r}
+set.seed(42)
+data <- data.frame(
+  x = rnorm(50),
+  y = rnorm(50)
+)
+head(data)
+```
+
+# Plot Data using ggplot2
+
+Now, let's create a scatterplot of the data using ggplot2:
+
+```{r plot}
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  labs(title = "Scatterplot of x and y", x = "X-axis", y = "Y-axis")
+```
+
+# Conclusion
+
+This example demonstrates how to create a simple R Markdown document 
+that includes data manipulation and plotting with R. R Markdown is a 
+powerful tool for combining code, comments, and results into a single, 
+easy-to-read document.

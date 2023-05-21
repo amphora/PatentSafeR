@@ -2,11 +2,11 @@
 % Please edit documentation in R/PatentSafe.R
 \name{submit_this_project}
 \alias{submit_this_project}
-\title{Submit this project to PatentSafe}
+\title{Submit this project to PatentSafe as both a PDF and a .zip attachment}
 \usage{
 submit_this_project(
   directory = ".",
-  report_filename = "Report.Rmd",
+  report_filename = "Writeup.Rmd",
   summary = NULL,
   metadata = NULL,
   destination = "sign",
@@ -22,7 +22,8 @@ submit_this_project(
 \item{summary}{Summary of the experiment, defaults to PatentSafe's automatic
 calculation}
 
-\item{metadata}{Metadata for the PatentSafe document, as a}
+\item{metadata}{Metadata for the PatentSafe document, as a list() of key
+value pairs}
 
 \item{destination}{PatentSafe queue to submit to, defaults to "sign"}
 
@@ -34,10 +35,10 @@ calculation}
 Error code or opens PatentSafe in a browser
 }
 \description{
-Submit this project to PatentSafe
+Submit this project to PatentSafe as both a PDF and a .zip attachment
 }
 \examples{
-submit_this_project(system.file("extdata", package = 'PatentSafeR'),
-                    url = 'https://demo.morescience.com', 
-                    author_id = 'clarusc')
+\dontrun{
+submit_this_project('.'
+}
 }

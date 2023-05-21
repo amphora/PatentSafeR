@@ -6,10 +6,11 @@
 submission because we can extract text etc.}
 \usage{
 submit_rmd(
-  report_filename,
+  report_filename = "Writeup.Rmd",
   summary = NULL,
   metadata = NULL,
   destination = "sign",
+  attachment_filename = NULL,
   url = Sys.getenv("PATENTSAFE_URL"),
   author_id = Sys.getenv("PATENTSAFE_USERID")
 )
@@ -20,9 +21,13 @@ submit_rmd(
 \item{summary}{Summary of the experiment, defaults to PatentSafe's
 automatic calculation}
 
-\item{metadata}{Metadata for the PatentSafe document, as a}
+\item{metadata}{Metadata for the PatentSafe document, as a list() of key
+value pairs}
 
 \item{destination}{PatentSafe queue to submit to, defaults to "sign"}
+
+\item{attachment_filename}{The filename of an attachment defaults to
+no attachment}
 
 \item{url}{the URL of your PatentSafe Server defaults to PATENTSAFE_USERID}
 
@@ -36,8 +41,9 @@ Submit an .Rmd file to PatentSafe. This is the best option for
 submission because we can extract text etc.
 }
 \examples{
-submit_rmd(system.file("extdata", 'Report.Rmd', 
-           package = 'PatentSafeR'),
-           'https://demo.morescience.com', 
+\dontrun{
+submit_rmd('Report.Rmd',
+           'https://demo.morescience.com',
            'clarusc')
+}
 }
