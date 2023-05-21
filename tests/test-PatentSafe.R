@@ -14,3 +14,5 @@ library(PatentSafeR)
 # test_that("submit_pdf() splits a string", {
 #   expect_equal(1, 1)
 # })
+
+# TODO Metadata tests

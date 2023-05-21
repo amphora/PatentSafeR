@@ -227,8 +227,11 @@ open_patentsafe_document <- function(submission_return, base_url) {
 }
 
 
-# Function to create XML from a named list
-# TODO function documentation and tests 
+#' Create a Metadata XML packet
+#'
+#' @param named_list key value pairs of metadata items
+#'
+#' @return the metadata XML for PatentSafe submission
 create_metadata_xml <- function(named_list) {
   # Create an empty XML node for 'metadata'
   metadata <- XML::newXMLNode("metadata")
