@@ -40,6 +40,9 @@ submit_this_project <- function(directory = ".",
     url = url,
     author_id = author_id
   )
+
+  # Clean up the Zipfile
+  unlink(temp_zipfile)
 }
 
 
@@ -102,6 +105,7 @@ submit_rmd <- function(report_filename = "Writeup.Rmd",
     summary = summary,
     metadata = metadata,
     destination = destination,
+    attachment_filename = attachment_filename,
     url = url,
     author_id = author_id
   )
@@ -155,6 +159,7 @@ submit_pdf <- function(report_filename,
   req <- httr2::req_body_multipart(
     req,
     pdfContent = curl::form_file(report_filename),
+    attachment = curl::form_file(attachment_filenam),
     author_id = author_id,
     summary = summary,
     destination = destination,
