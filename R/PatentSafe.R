@@ -42,7 +42,9 @@ submit_this_project <- function(directory = ".",
   )
 
   # Clean up the Zipfile
-  unlink(temp_zipfile)
+  unlink(zip_filename)
+
+  response
 }
 
 
@@ -109,6 +111,9 @@ submit_rmd <- function(report_filename = "Writeup.Rmd",
     url = url,
     author_id = author_id
   )
+
+  response
+
 }
 
 
@@ -174,10 +179,10 @@ submit_pdf <- function(report_filename,
   # TODO some error handling here
 
   # Return the response as a string
-  response = httr2::resp_body_string(resp)
+  response <- httr2::resp_body_string(resp)
 
   # And send the user to PatentSafe
-  open_patentsafe_document(resp, url)
+  open_patentsafe_document(response, url)
 }
 
 
