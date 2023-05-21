@@ -219,6 +219,7 @@ open_patentsafe_document <- function(submission_return, base_url) {
           collapse = "")
 
   # So if it starts with OK, redirect the user to sign it
+  # TODO possibly only if this was into the sign queue
   if (return_code == "OK") {
     browseURL(doc_url)
   } else {
