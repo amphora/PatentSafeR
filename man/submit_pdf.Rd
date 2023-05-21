@@ -43,6 +43,6 @@ Submit a PDF
 }
 \examples{
 submit_pdf(system.file("extdata", "test.pdf", package = "PatentSafeR"),
-           url = 'https://demo.morescience.com',
-           author_id = 'clarusc')
+           url = "https://demo.morescience.com",
+           author_id = "clarusc")
 }
