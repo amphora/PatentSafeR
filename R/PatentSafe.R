@@ -159,7 +159,7 @@ submit_pdf <- function(report_filename,
   req <- httr2::req_body_multipart(
     req,
     pdfContent = curl::form_file(report_filename),
-    attachment = curl::form_file(attachment_filenam),
+    attachment = curl::form_file(attachment_filename),
     author_id = author_id,
     summary = summary,
     destination = destination,
