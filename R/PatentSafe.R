@@ -57,7 +57,8 @@ submit_pdf <- function(report_filename,
     destination = destination,
     text_content = text_content,
     summary = summary,
-    metadata = metadata
+    metadata = metadata,
+    source = "PatentSafeR"
   )
 
   resp <- httr2::req_perform(req)
