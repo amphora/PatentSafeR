@@ -16,7 +16,9 @@ Imports:
     httr2,
     curl, 
     zip,
-    rmarkdown
+    rmarkdown,
+    rvest,
+    xml2
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

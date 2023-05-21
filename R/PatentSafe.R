@@ -5,13 +5,13 @@
 #' @param report_filename filename of your report file (should be a PDF)
 #' @param url the URL of your PatentSafe Server defaults to PATENTSAFE_USERID
 #' @param author_id your PatentSafe user ID defaults to PATENTSAFE_URL
-#' @param text_content Textual content of the PDF, defaults to PatentSafe's 
+#' @param text_content Textual content of the PDF, defaults to PatentSafe's
 #' automatic extraction
-#' @param summary Summary of the experiment, defaults to PatentSafe's automatic 
+#' @param summary Summary of the experiment, defaults to PatentSafe's automatic
 #'                calculation
 #' @param metadata Metadata for the PatentSafe document, as a
 #' @param destination PatentSafe queue to submit to, defaults to "sign"
-#' @param attachment_filename The filename of an attachment defaults to 
+#' @param attachment_filename The filename of an attachment defaults to
 #'        no attachment
 #'
 #' @return PatentSafe document ID or error code
@@ -19,17 +19,17 @@
 #'
 #' @examples
 #' submit_pdf(system.file("extdata", "test.pdf", package = "PatentSafeR"),
-#'            url = 'https://demo.morescience.com',
-#'            author_id = 'clarusc')
+#'            url = "https://demo.morescience.com",
+#'            author_id = "clarusc")
 submit_pdf <- function(report_filename,
                       text_content = NULL,
                       summary = NULL,
                       metadata = NULL,
-                      destination = 'sign',
+                      destination = "sign",
                       attachment_filename = NULL,
                       url = Sys.getenv("PATENTSAFE_URL"),
-                      author_id = Sys.getenv("PATENTSAFE_USERID"))
-{
+                      author_id = Sys.getenv("PATENTSAFE_USERID")) {
+
   cat("This is the filename", report_filename, "\n")
 
   # This is the URL of the API endpoint
@@ -37,15 +37,10 @@ submit_pdf <- function(report_filename,
 
   cat("This is the API Endpoint", submit_url, "\n")
 
-
   # Any metadata you might want to set
   # TODO generate this from the parameters
   metadata <-
     "<metadata> <tag name=\"TAG NAME\">VALUE</tag> </metadata>"
-
-  # Summary of the document
-  doc_summary <-
-    "This is a summary of the document. Put up to 200 characters here"
 
   req <- httr2::request(submit_url)
   req <- httr2::req_options(req, ssl_verifypeer = 0)
@@ -53,7 +48,7 @@ submit_pdf <- function(report_filename,
     req,
     pdfContent = curl::form_file(report_filename),
     author_id = author_id,
-    summary = doc_summary,
+    summary = summary,
     destination = destination,
     text_content = text_content,
     summary = summary,
@@ -75,7 +70,7 @@ submit_pdf <- function(report_filename,
 #' @param url the URL of your PatentSafe Server defaults to PATENTSAFE_USERID
 #' @param author_id your PatentSafe user ID defaults to PATENTSAFE_URL
 #' @param report_filename Filename of the Report file, defaults to Report.Rmd
-#' @param summary Summary of the experiment, defaults to PatentSafe's automatic 
+#' @param summary Summary of the experiment, defaults to PatentSafe's automatic
 #'                calculation
 #' @param metadata Metadata for the PatentSafe document, as a
 #' @param destination PatentSafe queue to submit to, defaults to "sign"
@@ -85,17 +80,15 @@ submit_pdf <- function(report_filename,
 #'
 #' @examples
 #' submit_this_project(system.file("extdata", package = 'PatentSafeR'),
-#'                     url = 'https://demo.morescience.com', 
-#'                     author_id = 'clarusc')
-submit_this_project <- function(directory = '.',
+#'                     url = 'https://demo.morescience.com',
+#'                     author_id = "clarusc")
+submit_this_project <- function(directory = ".",
                               report_filename = "Report.Rmd",
                               summary = NULL,
                               metadata = NULL,
-                              destination = 'sign',
+                              destination = "sign",
                               url = Sys.getenv("PATENTSAFE_URL"),
-                              author_id = Sys.getenv("PATENTSAFE_USERID"))
-
-{
+                              author_id = Sys.getenv("PATENTSAFE_USERID")) {
   # Render the file
   rmarkdown::render(
     input = report_filename,
@@ -113,7 +106,7 @@ submit_this_project <- function(directory = '.',
   zip::zip(zipfile = zip_filename, directory, flags = "-r")
 
   # Now we've prepared things, submit to PatentSafe
-  response = submit_pdf(
+  response <- submit_pdf(
     report_filename,
     text_content = text_content,
     summary = summary,
@@ -145,17 +138,16 @@ submit_this_project <- function(directory = '.',
 #' @export
 #'
 #' @examples
-#' submit_rmd(system.file("extdata", 'Report.Rmd', 
+#' submit_rmd(system.file("extdata", 'Report.Rmd',
 #'            package = 'PatentSafeR'),
-#'            'https://demo.morescience.com', 
+#'            'https://demo.morescience.com',
 #'            'clarusc')
 submit_rmd <- function(report_filename,
                       summary = NULL,
                       metadata = NULL,
-                      destination = 'sign',
+                      destination = "sign",
                       url = Sys.getenv("PATENTSAFE_URL"),
-                      author_id = Sys.getenv("PATENTSAFE_USERID"))
-{
+                      author_id = Sys.getenv("PATENTSAFE_USERID")) {
   # Render the file as a .html and .pdf
   rmarkdown::render(
     input = report_filename,
@@ -164,12 +156,19 @@ submit_rmd <- function(report_filename,
     output_dir = tempdir()
   )
 
-  # TODO make the path work on Windows
-  # TODO right now this ends up with nothing
-  report_filename <- paste0(tempdir(), "/report.pdf")
+  # The pathname of the PDF which we will submit to PatentSafe
+  report_filename <- file.path(tempdir(), "/report.pdf")
 
-  # TODO get the text content from the .html file
-   text_content <- NULL
+  # Get the text content from the .html file
+  # Read the HTML file
+  html_content <- rvest::read_html(file.path(tempdir(), "/report.html"))
+
+  # Extract the text from the HTML
+  plain_text <- rvest::html_text(html_content)
+
+  # Remove residual whitespace and line breaks and that's what we can
+  # use for PatentSafe
+  text_content <- gsub("\\s+", " ", plain_text)
 
   # Now we've prepared things, submit to PatentSafe
   response <- submit_pdf(
@@ -199,8 +198,7 @@ submit_rmd <- function(report_filename,
 #' This function isn't exported so there's no @export
 #'
 #' @importFrom utils browseURL
-open_patentsafe_document <- function(submission_return, base_url)
-{
+open_patentsafe_document <- function(submission_return, base_url) {
   # This will either be OK and a document ID, e.g. "OK:AMPH4500001388"
   # or an error code
   # So extract the components
