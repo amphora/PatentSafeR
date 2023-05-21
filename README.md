@@ -16,6 +16,21 @@ You can install the development version of PatentSafeR from [GitHub](https://git
 devtools::install_github("amphora/PatentSafeR")
 ```
 
+## Requirements
+
+You will need to have `pandoc` installed on your computer. This is used to convert your R Markdown file to a PDF.
+
+You will also need a LaTeX distribution installed.
+
+On a Mac with Homebrew installed you can do this with:
+
+``` sh
+brew install pandoc
+brew install --cask mactex
+```
+
+Note you will need to restart your R environment after installing `mactex` to pick up the new binaries.
+
 ## Example
 
 To submit the current directory to PatentSafe, assuming you have a file `Report.Rmd` which is your write up.
@@ -54,4 +69,5 @@ To test
 ``` r
 devtools::load_all()
 PatentSafeR::submit_pdf(system.file("extdata", "test.pdf", package = "PatentSafeR"))
+PatentSafeR::submit_rmd(system.file("extdata", "Report.Rmd", package = "PatentSafeR"))
 ```

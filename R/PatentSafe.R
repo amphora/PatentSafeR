@@ -124,6 +124,8 @@ submit_this_project <- function(directory = '.',
     author_id = author_id
   )
 
+  cat("This is the response", response, "\n")
+
   # Now open the project
   open_patentsafe_document(response)
 }
@@ -163,6 +165,7 @@ submit_rmd <- function(report_filename,
   )
 
   # TODO make the path work on Windows
+  # TODO right now this ends up with nothing
   report_filename <- paste0(tempdir(), "/report.pdf")
 
   # TODO get the text content from the .html file
@@ -178,6 +181,8 @@ submit_rmd <- function(report_filename,
     url = url,
     author_id = author_id
   )
+
+  cat("This is the response", response, "\n")
 
   # Now open the project
   open_patentsafe_document(response)
