@@ -12,7 +12,7 @@ You can install the development version of PatentSafeR from [GitHub](https://git
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("simoncoles/PatentSafeR")
+devtools::install_github("amphora/PatentSafeR")
 ```
 
 ## Example
