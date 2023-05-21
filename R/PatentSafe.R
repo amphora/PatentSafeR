@@ -30,10 +30,13 @@ submit_pdf <- function(report_filename,
                       url = Sys.getenv("PATENTSAFE_URL"),
                       author_id = Sys.getenv("PATENTSAFE_USERID"))
 {
-  cat("This is the filename", report_filename)
+  cat("This is the filename", report_filename, "\n")
 
   # This is the URL of the API endpoint
-  submit_url <- paste(url, "/submit/document.html")
+  submit_url <- paste(url, "/submit/document.html", sep = "", collapse = "")
+
+  cat("This is the API Endpoint", submit_url, "\n")
+
 
   # Any metadata you might want to set
   # TODO generate this from the parameters
@@ -45,8 +48,8 @@ submit_pdf <- function(report_filename,
     "This is a summary of the document. Put up to 200 characters here"
 
   req <- httr2::request(submit_url)
-  httr2::req_options(req, ssl_verifypeer = 0)
-  httr2::req_body_multipart(
+  req <- httr2::req_options(req, ssl_verifypeer = 0)
+  req <- httr2::req_body_multipart(
     req,
     pdfContent = curl::form_file(report_filename),
     author_id = author_id,
@@ -56,7 +59,13 @@ submit_pdf <- function(report_filename,
     summary = summary,
     metadata = metadata
   )
-  httr2::req_dry_run(req)
+
+  resp <- httr2::req_perform(req)
+
+  # TODO some error handling here
+
+  # Return the response as a string
+  httr2::resp_body_string(resp)
 }
 
 #' Submit this project to PatentSafe
