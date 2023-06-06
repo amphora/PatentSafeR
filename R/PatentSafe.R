@@ -218,8 +218,6 @@ submit_pdf <- function(report_filename,
 }
 
 
-
-
 #' Title Open a PatentSafe document in the browser, based on the
 #'
 #' @param submission_return The return from a PatentSafe submission HTTP call
