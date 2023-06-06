@@ -208,21 +208,19 @@ submit_pdf <- function(report_filename,
 
   # Perform the HTTP call
   resp <- httr2::req_perform(req)
+  # Return the response as a string
   response <- httr2::resp_body_string(resp)
-  open_patentsafe_document(response, url)
 
-  # # Return the response as a string
-  # 
 
-  # status <- httr2::resp_status(resp)
-  # if (status$code == 200) {
-  #   # It worked so send the user to PatentSafe
-  #   open_patentsafe_document(response, url)
-  # } else {
-  #   # It didn't work so stop
-  #   warning("Status code wasn't 200")
-  #   stop("Call to PatentSafe failed")
-  # }
+  status_code <- httr2::resp_status(resp)
+  if (status_code == 200) {
+    # It worked so send the user to PatentSafe
+    open_patentsafe_document(response, url)
+  } else {
+    # It didn't work so stop
+    warning("Status code wasn't 200")
+    stop("Call to PatentSafe failed")
+  }
 
 }
 
