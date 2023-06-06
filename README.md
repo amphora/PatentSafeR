@@ -71,11 +71,13 @@ To check the Package, use `devtools::check()`
 
 To generate documentation use `devtools::document()`
 
-To test
+To test (note that `system.file("extdata", "test.pdf", package = "PatentSafeR")` is a way to get
+to the `inst/extdata` directory)
 
 ``` r
 devtools::load_all()
 PatentSafeR::submit_pdf(system.file("extdata", "test.pdf", package = "PatentSafeR"))
 PatentSafeR::submit_rmd(system.file("extdata", "Writeup.Rmd", package = "PatentSafeR"))
 PatentSafeR::submit_rmd(system.file("extdata", "Writeup.Rmd", package = "PatentSafeR"), metadata = list(key1 = "value1", key2 = "value2", key3 = "value3"))
+PatentSafeR::submit_this_project(directory = system.file("extdata", package = "PatentSafeR"), report_filename = system.file("extdata", "Writeup.Rmd", package = "PatentSafeR"), url = "test.morescience.com", author_id = "simonc")
 ```

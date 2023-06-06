@@ -31,7 +31,25 @@ submit_this_project <- function(directory = ".",
 
   # Create a Zip of the project
   zip_filename <- file.path(tempdir(), "/project.zip")
-  zip::zip(zipfile = zip_filename, directory, flags = "-r")
+
+  # This makes all the paths relative
+  # Get all files within the directory
+  file_list <- list.files(directory, full.names = TRUE)
+
+  # Convert absolute paths to relative paths
+  relative_file_list <- basename(normalizePath(file_list, mustWork = FALSE))
+
+  # Store the current working directory
+  previous_wd <- getwd()
+
+  # Change the working directory to the target directory
+  setwd(directory)
+
+  # Zip the directory with relative paths
+  zip::zip(zipfile = zip_filename, files = relative_file_list)
+
+  # Restore the original working directory
+  setwd(previous_wd)
 
   # Now call the .Rmd submitter
   response <- submit_rmd(
@@ -165,6 +183,13 @@ submit_pdf <- function(report_filename,
   # Any metadata you might want to set
   metadata <- create_metadata_xml(metadata)
 
+  # If and only if there is an attachment
+  if (is.null(attachment_filename)) {
+    attachment = NULL
+  } else {
+    attachment = curl::form_file(attachment_filename)
+  }
+
   req <- httr2::request(submit_url)
   req <- httr2::req_options(req, ssl_verifypeer = 0)
 
@@ -172,7 +197,7 @@ submit_pdf <- function(report_filename,
   req <- httr2::req_body_multipart(
     req,
     pdfContent = curl::form_file(report_filename),
-    # attachment = curl::form_file(attachment_filename),
+    attachment = attachment,
     authorId = author_id,
     summary = summary,
     destination = destination,
