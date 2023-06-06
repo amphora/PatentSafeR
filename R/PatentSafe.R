@@ -185,15 +185,14 @@ submit_pdf <- function(report_filename,
 
   # If and only if there is an attachment
   if (is.null(attachment_filename)) {
-    attachment = NULL
+    attachment <- NULL
   } else {
-    attachment = curl::form_file(attachment_filename)
+    attachment <- curl::form_file(attachment_filename)
   }
 
   req <- httr2::request(submit_url)
   req <- httr2::req_options(req, ssl_verifypeer = 0)
 
-  # browser()
   req <- httr2::req_body_multipart(
     req,
     pdfContent = curl::form_file(report_filename),
@@ -207,19 +206,23 @@ submit_pdf <- function(report_filename,
     source = "PatentSafeR"
   )
 
+  # Perform the HTTP call
   resp <- httr2::req_perform(req)
-
-  # warning("There should be some error handling here")
-  # TODO some error handling here
-
   # Return the response as a string
   response <- httr2::resp_body_string(resp)
 
-  # And send the user to PatentSafe
-  open_patentsafe_document(response, url)
+
+  status_code <- httr2::resp_status(resp)
+  if (status_code == 200) {
+    # It worked so send the user to PatentSafe
+    open_patentsafe_document(response, url)
+  } else {
+    # It didn't work so stop
+    warning("Status code wasn't 200")
+    stop("Call to PatentSafe failed")
+  }
+
 }
-
-
 
 
 #' Title Open a PatentSafe document in the browser, based on the
