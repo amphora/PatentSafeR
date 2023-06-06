@@ -27,8 +27,6 @@ submit_this_project <- function(directory = ".",
                               url = Sys.getenv("PATENTSAFE_URL"),
                               author_id = Sys.getenv("PATENTSAFE_USERID")) {
 
-  cat("submit_this_project called with directory ", directory, "\n")
-
   # Create a Zip of the project
   zip_filename <- file.path(tempdir(), "/project.zip")
 
@@ -100,8 +98,6 @@ submit_rmd <- function(report_filename = "Writeup.Rmd",
                       attachment_filename = NULL,
                       url = Sys.getenv("PATENTSAFE_URL"),
                       author_id = Sys.getenv("PATENTSAFE_USERID")) {
-
-  cat("submit_rmd called with file ", report_filename, "\n")
 
   # Render the file as a .html and .pdf
   rmarkdown::render(
@@ -175,10 +171,12 @@ submit_pdf <- function(report_filename,
                       url = Sys.getenv("PATENTSAFE_URL"),
                       author_id = Sys.getenv("PATENTSAFE_USERID")) {
 
-  cat("This is the filename", report_filename, "\n")
+  # Clean up the URL
+  clean_url <- create_valid_url(url)
 
   # This is the URL of the API endpoint
-  submit_url <- paste(url, "/submit/document.html", sep = "", collapse = "")
+  submit_url <- paste(clean_url, "/submit/document.html", 
+                      sep = "", collapse = "")
 
   # Any metadata you might want to set
   metadata <- create_metadata_xml(metadata)
@@ -215,7 +213,7 @@ submit_pdf <- function(report_filename,
   status_code <- httr2::resp_status(resp)
   if (status_code == 200) {
     # It worked so send the user to PatentSafe
-    open_patentsafe_document(response, url)
+    open_patentsafe_document(response, clean_url)
   } else {
     # It didn't work so stop
     warning("Status code wasn't 200")
@@ -241,8 +239,7 @@ open_patentsafe_document <- function(submission_return, base_url) {
   return_code <- substring(submission_return, 0, 2)
   doc_id <- substring(submission_return, 4)
   doc_url <-
-    paste("https://",
-          base_url,
+    paste(base_url,
           "/document/",
           doc_id,
           sep = "",
@@ -288,4 +285,19 @@ create_metadata_xml <- function(named_list) {
   # Convert the 'metadata' node to an XML string
   xml_string <- XML::saveXML(metadata)
   return(xml_string)
+}
+
+
+# Clean up the URL, which might come in as:
+# test.morescience.com, http://test.morescience.com,
+#   https://test.morescience.com
+create_valid_url <- function(url) {
+  if (!startsWith(url, "https://")) {
+    if (startsWith(url, "http://")) {
+      url <- gsub("http://", "https://", url)
+    } else {
+      url <- paste0("https://", url)
+    }
+  }
+  return(url)
 }
