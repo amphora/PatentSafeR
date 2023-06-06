@@ -162,18 +162,18 @@ submit_pdf <- function(report_filename,
   # This is the URL of the API endpoint
   submit_url <- paste(url, "/submit/document.html", sep = "", collapse = "")
 
-  cat("This is the API Endpoint", submit_url, "\n")
-
   # Any metadata you might want to set
   metadata <- create_metadata_xml(metadata)
 
   req <- httr2::request(submit_url)
   req <- httr2::req_options(req, ssl_verifypeer = 0)
+
+  # browser()
   req <- httr2::req_body_multipart(
     req,
     pdfContent = curl::form_file(report_filename),
-    attachment = curl::form_file(attachment_filename),
-    author_id = author_id,
+    # attachment = curl::form_file(attachment_filename),
+    authorId = author_id,
     summary = summary,
     destination = destination,
     text_content = text_content,
@@ -184,6 +184,7 @@ submit_pdf <- function(report_filename,
 
   resp <- httr2::req_perform(req)
 
+  # warning("There should be some error handling here")
   # TODO some error handling here
 
   # Return the response as a string
@@ -212,7 +213,8 @@ open_patentsafe_document <- function(submission_return, base_url) {
   return_code <- substring(submission_return, 0, 2)
   doc_id <- substring(submission_return, 4)
   doc_url <-
-    paste(base_url,
+    paste("https://",
+          base_url,
           "/document/",
           doc_id,
           sep = "",
@@ -234,6 +236,11 @@ open_patentsafe_document <- function(submission_return, base_url) {
 #'
 #' @return the metadata XML for PatentSafe submission
 create_metadata_xml <- function(named_list) {
+  # Bail out if there's nothing in the list
+  if (is.null(named_list) || length(named_list) == 0) {
+    return(NULL)
+  }
+
   # Create an empty XML node for 'metadata'
   metadata <- XML::newXMLNode("metadata")
 
