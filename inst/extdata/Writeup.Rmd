@@ -4,6 +4,10 @@ author: "Clarus"
 date: "`r Sys.Date()`"
 ---
 
+# PatentSafe R
+
+For more information see [https://github.com/amphora/PatentSafeR](https://github.com/amphora/PatentSafeR)
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)

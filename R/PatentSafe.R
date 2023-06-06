@@ -31,7 +31,25 @@ submit_this_project <- function(directory = ".",
 
   # Create a Zip of the project
   zip_filename <- file.path(tempdir(), "/project.zip")
-  zip::zip(zipfile = zip_filename, directory, flags = "-r")
+
+  # This makes all the paths relative
+  # Get all files within the directory
+  file_list <- list.files(directory, full.names = TRUE)
+
+  # Convert absolute paths to relative paths
+  relative_file_list <- basename(normalizePath(file_list, mustWork = FALSE))
+
+  # Store the current working directory
+  previous_wd <- getwd()
+
+  # Change the working directory to the target directory
+  setwd(directory)
+
+  # Zip the directory with relative paths
+  zip::zip(zipfile = zip_filename, files = relative_file_list)
+
+  # Restore the original working directory
+  setwd(previous_wd)
 
   # Now call the .Rmd submitter
   response <- submit_rmd(
@@ -162,18 +180,25 @@ submit_pdf <- function(report_filename,
   # This is the URL of the API endpoint
   submit_url <- paste(url, "/submit/document.html", sep = "", collapse = "")
 
-  cat("This is the API Endpoint", submit_url, "\n")
-
   # Any metadata you might want to set
   metadata <- create_metadata_xml(metadata)
 
+  # If and only if there is an attachment
+  if (is.null(attachment_filename)) {
+    attachment = NULL
+  } else {
+    attachment = curl::form_file(attachment_filename)
+  }
+
   req <- httr2::request(submit_url)
   req <- httr2::req_options(req, ssl_verifypeer = 0)
+
+  # browser()
   req <- httr2::req_body_multipart(
     req,
     pdfContent = curl::form_file(report_filename),
-    attachment = curl::form_file(attachment_filename),
-    author_id = author_id,
+    attachment = attachment,
+    authorId = author_id,
     summary = summary,
     destination = destination,
     text_content = text_content,
@@ -184,6 +209,7 @@ submit_pdf <- function(report_filename,
 
   resp <- httr2::req_perform(req)
 
+  # warning("There should be some error handling here")
   # TODO some error handling here
 
   # Return the response as a string
@@ -212,13 +238,15 @@ open_patentsafe_document <- function(submission_return, base_url) {
   return_code <- substring(submission_return, 0, 2)
   doc_id <- substring(submission_return, 4)
   doc_url <-
-    paste(base_url,
+    paste("https://",
+          base_url,
           "/document/",
           doc_id,
           sep = "",
           collapse = "")
 
   # So if it starts with OK, redirect the user to sign it
+  # TODO possibly only if this was into the sign queue
   if (return_code == "OK") {
     browseURL(doc_url)
   } else {
@@ -227,9 +255,17 @@ open_patentsafe_document <- function(submission_return, base_url) {
 }
 
 
-# Function to create XML from a named list
-# TODO function documentation and tests 
+#' Create a Metadata XML packet
+#'
+#' @param named_list key value pairs of metadata items
+#'
+#' @return the metadata XML for PatentSafe submission
 create_metadata_xml <- function(named_list) {
+  # Bail out if there's nothing in the list
+  if (is.null(named_list) || length(named_list) == 0) {
+    return(NULL)
+  }
+
   # Create an empty XML node for 'metadata'
   metadata <- XML::newXMLNode("metadata")
 
