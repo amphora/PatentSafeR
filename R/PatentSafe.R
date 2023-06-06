@@ -253,7 +253,7 @@ open_patentsafe_document <- function(submission_return, base_url) {
   if (return_code == "OK") {
     browseURL(doc_url)
   } else {
-    "Something bad  happened"
+    stop("PatentSafe Rejected the submission")
   }
 }
 
