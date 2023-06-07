@@ -5,7 +5,7 @@
 <!-- badges: end -->
 
 The goal of PatentSafeR is to make it quick and easy to submit your experimental
-work to the [PatentSafe ELN from Amphora Research Systems](https://amphora-research.com).
+work to the [PatentSafe ELN from Amphora Research Systems](https://www.amphora-research.com/).
 
 ## Installation
 
@@ -91,3 +91,7 @@ You can install the development version of PatentSafeR from [GitHub](https://git
 # install.packages("devtools")
 devtools::install_github("amphora/PatentSafeR")
 ```
+
+### Releasing
+
+Do `usethis::use_release_issue(version = x.x.x.x)

@@ -88,8 +88,8 @@ submit_this_project <- function(directory = ".",
 #' @examples
 #' \dontrun{
 #' submit_rmd('Report.Rmd',
-#'            'https://demo.morescience.com',
-#'            'clarusc')
+#'            url = 'https://your-patnetsafe.com',
+#'            author_id = 'clarusc')
 #' }
 submit_rmd <- function(report_filename = "Writeup.Rmd",
                       summary = NULL,
@@ -158,7 +158,7 @@ submit_rmd <- function(report_filename = "Writeup.Rmd",
 #' @examples
 #' \dontrun{
 #' submit_pdf(test.pdf,
-#'            url = "https://demo.morescience.com",
+#'            url = 'https://your-patnetsafe.com',
 #'            author_id = "clarusc")
 #' }
 submit_pdf <- function(report_filename,
@@ -174,7 +174,7 @@ submit_pdf <- function(report_filename,
   clean_url <- create_valid_url(url)
 
   # This is the URL of the API endpoint
-  submit_url <- paste(clean_url, "/submit/document.html", 
+  submit_url <- paste(clean_url, "/submit/document.html",
                       sep = "", collapse = "")
 
   # Any metadata you might want to set
@@ -222,13 +222,13 @@ submit_pdf <- function(report_filename,
 }
 
 
-# Title Open a PatentSafe document in the browser, based on the
-#
-# @param submission_return The return from a PatentSafe submission HTTP call
-# @param base_url The PatentSafe server's URL
-#
-# @return
-# This function isn't exported so there's no @export
+#' Open a PatentSafe document in the browser, based on the return code from
+#' PatentSafe's HTTP endpoint
+#'
+#' @param submission_return The return from a PatentSafe submission HTTP call
+#' @param base_url The PatentSafe server's URL
+#' @keywords internal
+#' @return NULL
 #
 #' @importFrom utils browseURL
 open_patentsafe_document <- function(submission_return, base_url) {
@@ -245,18 +245,20 @@ open_patentsafe_document <- function(submission_return, base_url) {
           collapse = "")
 
   # So if it starts with OK, redirect the user to sign it
-  # TODO possibly only if this was into the sign queue
   if (return_code == "OK") {
     browseURL(doc_url)
   } else {
     stop("PatentSafe Rejected the submission")
   }
+  return(NULL)
 }
 
 
-# Create a Metadata XML packet
-# Take an R list of key value pairs of metadata items
-# Returns the metadata XML for PatentSafe submission
+#' Create a PatentSafe Metadata XML packet
+#'
+#' @param named_list A list of key value pairs of metadata items
+#' @keywords internal
+#' @return A string with the metadata XML for PatentSafe submission
 create_metadata_xml <- function(named_list) {
   # Bail out if there's nothing in the list
   if (is.null(named_list) || length(named_list) == 0) {
@@ -285,9 +287,13 @@ create_metadata_xml <- function(named_list) {
 }
 
 
-# Clean up the URL, which might come in as:
-# test.morescience.com, http://test.morescience.com,
-#   https://test.morescience.com
+#' Clean up the Server URL
+#'
+#' This function takes a variety of URL and domain name formats and
+#' creates an https:// version
+#' @param A character string of the server URL or domain name
+#' @keywords internal
+#' @return A string with the user URL in https:// format
 create_valid_url <- function(url) {
   if (!startsWith(url, "https://")) {
     if (startsWith(url, "http://")) {

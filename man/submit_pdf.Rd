@@ -45,7 +45,7 @@ Submit a PDF
 \examples{
 \dontrun{
 submit_pdf(test.pdf,
-           url = "https://demo.morescience.com",
+           url = 'https://your-patnetsafe.com',
            author_id = "clarusc")
 }
 }
