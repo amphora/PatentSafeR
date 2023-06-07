@@ -156,7 +156,6 @@ submit_rmd <- function(report_filename = "Writeup.Rmd",
 #' @export
 #'
 #' @examples
-#' # Path to the PDF
 #' \dontrun{
 #' submit_pdf(test.pdf,
 #'            url = "https://demo.morescience.com",
@@ -255,11 +254,9 @@ open_patentsafe_document <- function(submission_return, base_url) {
 }
 
 
-#' Create a Metadata XML packet
-#'
-#' @param named_list key value pairs of metadata items
-#'
-#' @return the metadata XML for PatentSafe submission
+# Create a Metadata XML packet
+# Take an R list of key value pairs of metadata items
+# Returns the metadata XML for PatentSafe submission
 create_metadata_xml <- function(named_list) {
   # Bail out if there's nothing in the list
   if (is.null(named_list) || length(named_list) == 0) {
