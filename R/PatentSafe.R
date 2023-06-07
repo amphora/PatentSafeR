@@ -222,14 +222,14 @@ submit_pdf <- function(report_filename,
 }
 
 
-#' Title Open a PatentSafe document in the browser, based on the
-#'
-#' @param submission_return The return from a PatentSafe submission HTTP call
-#' @param base_url The PatentSafe server's URL
-#'
-#' @return
-#' This function isn't exported so there's no @export
-#'
+# Title Open a PatentSafe document in the browser, based on the
+#
+# @param submission_return The return from a PatentSafe submission HTTP call
+# @param base_url The PatentSafe server's URL
+#
+# @return
+# This function isn't exported so there's no @export
+#
 #' @importFrom utils browseURL
 open_patentsafe_document <- function(submission_return, base_url) {
   # This will either be OK and a document ID, e.g. "OK:AMPH4500001388"
