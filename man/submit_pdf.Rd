@@ -43,7 +43,6 @@ PatentSafe document ID or error code
 Submit a PDF
 }
 \examples{
-# Path to the PDF
 \dontrun{
 submit_pdf(test.pdf,
            url = "https://demo.morescience.com",
