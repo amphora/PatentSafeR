@@ -5,16 +5,12 @@
 <!-- badges: end -->
 
 The goal of PatentSafeR is to make it quick and easy to submit your experimental
-work to the [PatentSafe ELN from Amphora Research Systems](https://amphora-research.com).
+work to the [PatentSafe ELN from Amphora Research Systems](https://www.amphora-research.com/).
 
 ## Installation
 
-You can install the development version of PatentSafeR from [GitHub](https://github.com/) with:
+Install PatentSafeR from CRAN as normal. 
 
-``` r
-# install.packages("devtools")
-devtools::install_github("amphora/PatentSafeR")
-```
 
 ## Requirements
 
@@ -43,8 +39,7 @@ sudo apt-get install texlive-latex-recommended texlive-latex-extra
 To submit the current directory to PatentSafe, assuming you have a file `Report.Rmd` which is your write up.
 
 ``` r
-library(PatentSafeR)
-## basic example code
+PatentSafeR::submit_this_project(".")
 ```
 
 ## Credentials
@@ -65,14 +60,18 @@ PATENTSAFE_USERID=clarusc
 
 ## Development
 
+### Devcontainer 
+
 To get an R Session in the included Dev Container, "R: Create R Terminal".
 
 To check the Package, use `devtools::check()`
 
 To generate documentation use `devtools::document()`
 
-To test (note that `system.file("extdata", "test.pdf", package = "PatentSafeR")` is a way to get
-to the `inst/extdata` directory)
+
+### Quick Examples for use in Development 
+
+To test you can use the folllowing. Note that `system.file("extdata", "test.pdf", package = "PatentSafeR")` is a way to get to the `inst/extdata` directory and wouldn't be needed normally)
 
 ``` r
 devtools::load_all()
@@ -84,3 +83,15 @@ PatentSafeR::submit_this_project(directory = system.file("extdata", package = "P
 
 When shipping, remember to increment the version number. 
 
+### Installing the Development Version
+
+You can install the development version of PatentSafeR from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("amphora/PatentSafeR")
+```
+
+### Releasing
+
+Do `usethis::use_release_issue(version = x.x.x.x)

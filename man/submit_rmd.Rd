@@ -43,7 +43,7 @@ submission because we can extract text etc.
 \examples{
 \dontrun{
 submit_rmd('Report.Rmd',
-           'https://demo.morescience.com',
-           'clarusc')
+           url = 'https://your-patnetsafe.com',
+           author_id = 'clarusc')
 }
 }
