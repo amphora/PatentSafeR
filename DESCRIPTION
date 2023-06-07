@@ -1,12 +1,12 @@
 Package: PatentSafeR
 Title: Easily Submit to PatentSafe
-Version: 0.0.0.4
+Version: 1.0.0
 Authors@R: c(
     person("Simon", "Coles", , "simonc@amphora-research.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0002-5680-5476")),
     person("Amphora Research Systems Ltd", role = "cph")
     )
-Description: Quickly and easily submit your experimental workin 'R' to the 'PatentSafe' ELN
+Description: Quickly and easily submit your experimental work in 'R' to the 'PatentSafe' ELN
              from Amphora Research Systems. Support for this package is provided with your 
              PatentSafe support contract, so if you'd like assistance use
              the "Support" link on every PatentSafe page. 
