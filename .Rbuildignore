@@ -9,3 +9,4 @@
 ^pkgdown$
 ^inst/extdata$
 ^cran-comments\.md$
+^CRAN-SUBMISSION$
