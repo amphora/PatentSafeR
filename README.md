@@ -81,3 +81,6 @@ PatentSafeR::submit_rmd(system.file("extdata", "Writeup.Rmd", package = "PatentS
 PatentSafeR::submit_rmd(system.file("extdata", "Writeup.Rmd", package = "PatentSafeR"), metadata = list(key1 = "value1", key2 = "value2", key3 = "value3"))
 PatentSafeR::submit_this_project(directory = system.file("extdata", package = "PatentSafeR"), report_filename = system.file("extdata", "Writeup.Rmd", package = "PatentSafeR"), url = "test.morescience.com", author_id = "simonc")
 ```
+
+When shipping, remember to increment the version number. 
+
