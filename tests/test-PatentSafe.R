@@ -15,4 +15,3 @@ library(PatentSafeR)
 #   expect_equal(1, 1)
 # })
 
-# TODO Metadata tests
